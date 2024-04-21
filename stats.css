@@ -61,12 +61,20 @@ body{
 
 .moves1,.moves2{
     width:50%;
+    height:100%;
     font-size: 2em;
     font-weight: 700;
     line-height: 1.5em;
     text-align: center;
+    overflow: scroll;
     /* align-content: center; */
 
+}
+.moves1::-webkit-scrollbar {
+    display: none;
+}
+.moves2::-webkit-scrollbar {
+    display: none;
 }
 
 .battle{

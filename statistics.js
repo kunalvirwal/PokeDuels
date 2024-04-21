@@ -122,8 +122,6 @@ async function setstats(){
     moves2.innerHTML=`<pre>${s2}</pre>`
 
 
-
-
     // console.log(yourAttacks)
     // console.log(yourHP)
     // console.log(opponent_pokemon)
