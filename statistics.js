@@ -72,7 +72,7 @@ async function setstats() {
   let opponentAttacks = await search_pokemon_and_attacks(opponent_poke_res);
   let opponentHp = getHP(opponent_poke_res) * health_multiplier;
   let opponent_poke_id = opponent_poke_res.id;
-
+  document.querySelector(".loader").style.display="none"
   let img1 = document.querySelector(".image1");
   img1.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${your_poke_id}.gif`;
 

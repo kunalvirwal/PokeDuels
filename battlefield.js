@@ -18,7 +18,6 @@ async function pokemon_fetcher(query) {
       return query + " is invalid";
     } else {
       let pokemon = await res.json();
-      console.log(pokemon);
       return pokemon;
     }
   } catch (error) {
