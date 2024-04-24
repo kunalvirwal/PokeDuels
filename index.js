@@ -45,8 +45,8 @@ function clickHandler(event) {
 function start() {
   your_pokemon = text_box1.value;
   opponent_pokemon = text_box2.value;
-  let p1 = false,
-    p2 = false;
+  let p1 = false,p2 = false,found=false;
+
   for (let val of poke_array) {
     if (!p1 && val == your_pokemon) {
       p1 = true;
@@ -55,8 +55,12 @@ function start() {
       p2 = true;
     }
     if (p1 && p2) {
+      found=true
       break;
     }
+  }
+  if (!found){
+document.querySelector(".warning").style.display="block"
   }
   if (p1 && p2) {
     sessionStorage.setItem("pA", your_pokemon);

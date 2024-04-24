@@ -45,7 +45,12 @@ body {
   font-size: 1.5rem;
   background-color: rgb(255, 238, 0);
   margin-bottom: 2vh;
+  transition: all ease 0.25s;
   }
+.attack_buttons:hover{
+  height:6vh;
+  font-size: 1.6rem;
+}
 .yourPokemon {
   position: absolute;
   left: 20%;
@@ -129,10 +134,14 @@ body {
   justify-content: center;
 }
 
-@media screen and (max-width:850px){
+
+@media screen and (max-width:1100px){
     .attack_buttons{
       font-size:1rem;
       
+    }
+    .attack_buttons:hover{
+      font-size: 1.2rem ;
     }
 }
 
@@ -141,8 +150,10 @@ body {
     height:10vh;
     
   }
+  .attack_buttons:hover{
+    height:12vh;
+  }
 }
-
 
 @media screen and (orientation:portrait) {
   .portrait{

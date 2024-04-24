@@ -105,6 +105,7 @@ async function setstats() {
 
   let moves2 = document.querySelector(".moves2-content");
   moves2.innerHTML = `<pre>${s2}</pre>`;
+  document.querySelector(".battle").style.display="block"
 }
 
 let your_pokemon = sessionStorage.getItem("pA");

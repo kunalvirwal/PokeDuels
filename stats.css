@@ -90,7 +90,7 @@ box-shadow: inset 0px -45px 62px -40px rgba(66, 68, 90, 1);
 .battle {
   color: red;
   font-size: 2em;
-  display: block;
+  display: none;
   margin: 1em;
 }
 
