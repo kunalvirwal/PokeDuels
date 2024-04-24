@@ -64,34 +64,37 @@ async function setstats() {
   let health_multiplier = 5;
 
   let your_poke_res = await pokemon_fetcher(your_pokemon);
-  let yourAttacks = await search_pokemon_and_attacks(your_poke_res);
-  let yourHP = getHP(your_poke_res) * health_multiplier;
   let your_poke_id = your_poke_res.id;
 
   let opponent_poke_res = await pokemon_fetcher(opponent_pokemon);
-  let opponentAttacks = await search_pokemon_and_attacks(opponent_poke_res);
-  let opponentHp = getHP(opponent_poke_res) * health_multiplier;
   let opponent_poke_id = opponent_poke_res.id;
-  document.querySelector(".loader").style.display="none"
+
+
   let img1 = document.querySelector(".image1");
   img1.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${your_poke_id}.gif`;
 
   let img2 = document.querySelector(".image2");
   img2.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${opponent_poke_id}.gif`;
 
+  let yourAttacks = await search_pokemon_and_attacks(your_poke_res);
+  let yourHP = getHP(your_poke_res) * health_multiplier;
+
+  let opponentAttacks = await search_pokemon_and_attacks(opponent_poke_res);
+  let opponentHp = getHP(opponent_poke_res) * health_multiplier;
+
   let name1 = document.querySelector(".name1");
   name1.textContent = your_pokemon.toUpperCase();
 
   let name2 = document.querySelector(".name2");
   name2.textContent = opponent_pokemon.toUpperCase();
-
+  document.querySelector(".loader").style.display="none"
   let s1 = `Your Pokemon\n\n\nHP : ${yourHP} \n\nAttacks\n`;
   for (let val of yourAttacks) {
     let n = val[0].charAt(0).toUpperCase() + val[0].slice(1);
     s1 += n + " : " + val[2] + "\n";
   }
 
-  let moves1 = document.querySelector(".moves1");
+  let moves1 = document.querySelector(".moves1-content");
   moves1.innerHTML = `<pre>${s1}</pre>`;
 
   let s2 = `Opponent Pokemon\n\n\nHP : ${opponentHp} \n\nAttacks\n`;
@@ -100,7 +103,7 @@ async function setstats() {
     s2 += n + " : " + val[2] + "\n";
   }
 
-  let moves2 = document.querySelector(".moves2");
+  let moves2 = document.querySelector(".moves2-content");
   moves2.innerHTML = `<pre>${s2}</pre>`;
 }
 

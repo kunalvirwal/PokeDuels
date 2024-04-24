@@ -8,7 +8,9 @@ let logger = document.querySelector(".logertext");
 let logs = ``,
   you,
   him;
+let turn=true
 let yourAudio, hisAudio;
+let final_msg= ""
 setstats();
 
 async function pokemon_fetcher(query) {
@@ -114,78 +116,96 @@ function sleep(ms) {
 }
 
 async function damager(event) {
-  const clicked_button = event.target;
-  let button_details = clicked_button.className;
-  button_details = button_details.split(" ");
-  for (val of yourAttacks) {
-    if (val[0] == button_details[1]) {
-      opponentHp -= val[2];
-      if (opponentHp < 0) {
-        opponentHp = 0;
+  if (turn){
+    turn=false
+    const clicked_button = event.target;
+    let button_details = clicked_button.className;
+    button_details = button_details.split(" ");
+  
+    for (val of yourAttacks) {
+      if (val[0] == button_details[1]) {
+        opponentHp -= val[2];
+        if (opponentHp < 0) {
+          opponentHp = 0;
+        }
+        yourAudio.play();
+        you.style.animationName = "yourattack";
+        you.style.animationDuration = "1s";
+        await sleep(1000);
+        you.style.animationName = "none";
+        logs += `\nYou used ${val[0]}\nYour HP=${yourHP} and Opponent's HP=${opponentHp}`;
+        logger.textContent = logs;
       }
-      yourAudio.play();
-      you.style.animationName = "yourattack";
-      you.style.animationDuration = "1s";
-      await sleep(1000);
-      you.style.animationName = "none";
-      logs += `\nYou used ${val[0]}\nYour HP=${yourHP} and Opponent's HP=${opponentHp}`;
-      logger.textContent = logs;
     }
+    btnResolver();
   }
-  btnResolver();
+  
+}
+
+function replay(){
+  location.reload();
+}
+
+function choose(){
+  window.location.href = "index.html";
 }
 
 async function gameloop() {
-  let gameaudio = new Audio("./pokemon-battle.mp3");
-  let winaudio = new Audio(
-    "./pokemon-red-blue-music-wild-pokemon-victory-theme-1.mp3"
-  );
-  gameaudio.play();
 
+  let gameaudio = new Audio("./pokemon-battle.mp3");
+  let winaudio = new Audio("./pokemon-red-blue-music-wild-pokemon-victory-theme-1.mp3");
+  gameaudio.play();
+  let logertext=document.querySelector(".loger")
   let x, his_attack;
 
   while (yourHP > 0 && opponentHp > 0) {
     gameaudio.play();
-    await waitForPress();
-
+    if (turn){
+      await waitForPress();
+      
+    }
     if (opponentHp <= 0) {
-      logs +=
-        "\n\n You Won!!!\nTo play again reload the page\nTo change the pokemons revert back to previous pages";
+      logs +="\n\n You Won!!!\nTo play again reload the page\nTo change the pokemons revert back to previous pages";
       logger.textContent = logs;
       him.src = "";
+      final_msg="You Won!"
       gameaudio.pause();
       winaudio.play();
+      document.querySelector(".final_box").style.display="flex"
+      document.querySelector(".final_text").textContent=final_msg
+      document.querySelectorAll(".attack_buttons").forEach((button) => button.removeEventListener("click", damager));
+      logertext.scrollTop=logertext.scrollHeight
       break;
     }
-
     x = Math.floor(Math.random() * opponentAttacks.length);
     his_attack = opponentAttacks[x];
-
     him.style.animationName = "hisattack";
     him.style.animationDuration = "1s";
     await sleep(1000);
     him.style.animationName = "none";
-
     yourHP -= his_attack[2];
+    turn=true
     if (yourHP < 0) {
       yourHP = 0;
     }
     hisAudio.play();
-
     logs += `\nOpponent used ${his_attack[0]}\nYour HP=${yourHP} and Opponent's HP=${opponentHp}`;
     logger.textContent = logs;
 
     if (yourHP <= 0) {
-      logs +=
-        "\n\nYou lost!!!\nTo play again reload the page\nTo change the pokemons revert back to previous pages";
+      logs +="\n\nYou lost!!!\nTo play again reload the page\nTo change the pokemons revert back to previous pages";
       logger.textContent = logs;
       you.src = "";
+      final_msg="You Lost!"
+      document.querySelector(".final_box").style.display="flex"
+      document.querySelector(".final_text").textContent=final_msg
+      document.querySelectorAll(".attack_buttons").forEach((button) => button.removeEventListener("click", damager));
+      logertext.scrollTop=logertext.scrollHeight
       break;
     }
+    logertext.scrollTop=logertext.scrollHeight
   }
-  document
-    .querySelectorAll(".attack_buttons")
-    .forEach((button) => button.removeEventListener("click", damager));
+  
 }
 
 function waitForPress() {
