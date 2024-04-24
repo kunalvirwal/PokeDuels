@@ -3,7 +3,20 @@
   --bgyellow: rgb(247, 247, 7);
   --bglightblue: rgb(31, 169, 233);
 }
-
+.moves2{
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+.moves2::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
+.moves1{
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+.moves1::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
 body {
   width: 100%;
   height: 100vh;
@@ -16,7 +29,6 @@ body {
 
 .leftstat,.rightstat {
   width: 50%;
-  height: 100%;
   box-sizing: border-box;
   padding-top: 3.5vh;
   padding-left: 2vw;
@@ -24,11 +36,27 @@ body {
   display: flex;
 }
 
+@media (max-width: 1100px) {
+  .leftstat{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .rightstat{
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 .rightstat {
   background-color: red;
 }
 .framer,.framel {
   width: 50%;
+  height: 50%;
   display: flex;
   flex-direction: column;
 }
@@ -73,10 +101,13 @@ body {
 }
 
 .battle {
+  position: fixed;
   color: red;
   font-size: 2em;
   display: block;
   margin: 1em;
+  right: 1vw;
+  top: 80vh;
 }
 
 .loader {

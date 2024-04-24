@@ -57,7 +57,12 @@ function getHP(data) {
 }
 
 function battle() {
-  window.location.href = "battlepage.html";
+  if(document.querySelector(".loader").style.display=="none"){
+    window.location.href = "battlepage.html";
+  }
+  else{
+    alert("Please wait for few seconds to load your Pokemon")
+  }
 }
 
 async function setstats() {
