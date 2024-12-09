@@ -12,4 +12,6 @@ Here's How it would look..
 ![Stats Page](./README_Assets/Stats.png)
 ![Battle Page](./README_Assets/Battle.png)
 
-<p style="text-align:center;">Made with ❤️ by Kunal</p>
+<p align=center>
+Made with ❤️ by Kunal
+</p>
